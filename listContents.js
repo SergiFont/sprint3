@@ -1,15 +1,14 @@
 const { readdir } = require("fs")
-const { join } = require("path")
-const inbox = join(__dirname, "inbox")
 
-const listContents = () => {
-     readdir(inbox, (error, files) => {
-        if (error) return console.log("Error: Folder inaccessible")
-        const result = files
-        return result
-    }
-    )
+const listContents = inbox => {
+    return new Promise((res, rej) => {
+        readdir(inbox, (error, files) => {
+            if (error) rej("Error: Folder inaccessible")
+            res(files)
+        }
+        )
+    })
 }
-// dirContents()
 
-module.exports = listContents
+module.exports = { listContents }
+

@@ -1,14 +1,15 @@
 const { readFile } = require("fs")
 const { join } = require("path")
-const inbox = join(__dirname, "inbox")
 
-const readContent = files => {
-    files.forEach(file => {
-        readFile(join(inbox, file), "utf8", (error, data) => {
-            if (error) return console.log("Error: File error")
-            console.log(data)
+const readContent = (files, inbox) => {
+    return new Promise(( res, rej )=> {
+        files.forEach(file => {
+            readFile(join(inbox, file), "utf8", (error, data) => {
+                if (error) rej("Error: File error")
+                res({file, data})
+            })
         })
     })
 }
 
-module.exports = readContent
+module.exports = { readContent }
