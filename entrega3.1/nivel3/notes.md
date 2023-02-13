@@ -1,2 +1,0 @@
-Tema.js
-Users.js
