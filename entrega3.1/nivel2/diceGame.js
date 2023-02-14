@@ -11,20 +11,24 @@ const diceGame = (player1, player2) => {
     console.log('------------------------------')
     game.addPlayer(p1)
     game.addPlayer(p2)
-    const autoPlay = rounds => {
-        if (isNaN(rounds)) throw new Error
-        if ( counter <= rounds ) {
-            playGame(p1, p2)
-            game.showScore()
-            console.log('-----------------------')
-            setTimeout(() => {
-                if(counter === 5) game.showWinner(p1, p2) 
-                counter++
-                autoPlay(rounds)
-            }, 1500)
+    const autoPlay = (rounds = 5) => {
+        try {
+            if (isNaN(rounds)) throw new Error('Insert a number, please')
+            if ( counter <= rounds ) {
+                playGame(p1, p2)
+                game.showScore()
+                console.log('-----------------------')
+                setTimeout(() => {
+                    if(counter === 5) game.showWinner(p1, p2) 
+                    counter++
+                    autoPlay(rounds)
+                }, 1500)
+            }    
+        } catch (error) {
+            console.log(error.message)
         }
     }
-    autoPlay(5, player1, player2)
+    autoPlay()
 }
 
 module.exports = { diceGame }
