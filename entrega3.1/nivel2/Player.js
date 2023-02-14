@@ -6,10 +6,6 @@ class Player {
     getName() {
         return this.name
     }
-
-    throwDice() {
-        return Math.ceil((Math.random() * 6))
-    }
 }
 
 module.exports = { Player }
