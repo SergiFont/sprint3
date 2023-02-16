@@ -1,14 +1,33 @@
-/*Escribe una aplicación que cree diferentes objetos Usuario/a. La aplicación podrá crear diferentes Temas y suscribirse
-los usuarios/as a ellos. Cuando un Usuario/a añada un mensaje a un Tema se enviará una alerta por la consola desde el Tema.
-También lo mostrarán por consola cada uno de los Usuarios/as que estén suscritos al Tema (recibirán el mensaje).
-Crea un Tema con un Usuario/a y otro con dos y muestra la recepción de los mensajes por los usuarios/as.
-Utiliza el módulo de eventos.*/
 const { User } = require('./User.js')
 const { Topic } = require('./Topic.js')
-const { subscribeUser } = require('./subscribeUser.js')
-const { showChat } = require('./showChat.js')
-const { setUserJoinSentinel } = require('./setUserJoinSentinel.js')
-const { setTopicMessageSentinel } = require('./setTopicMessageSentinel.js')
+
+
+const setUserJoinSentinel = topic => {
+    topic.accesSentinel().on('user joined channel', user => {
+        console.log(`${user.getName()} joined ${topic.getName()}`)
+    })
+}
+
+const setTopicMessageSentinel = topic => {
+    topic.accesSentinel().on('message', (user, message) => {
+        console.log(`${topic.getName()}.... ${user.getName()}: ${message}`)
+    })
+}
+
+const subscribeUser = (topic, user, time = 0) => {
+    setTimeout(() => {
+        topic.addUser(user)
+    }, time)
+}
+
+const showChat = (topic, user, message, time) => {
+    setTimeout(() => {
+        topic.sendMessage(user, message)
+    }, time)
+}
+
+
+/////////////////////////////////////////////////////
 
 const user1 = new User('Sergi')
 const user2 = new User('Juan')
