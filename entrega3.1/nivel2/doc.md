@@ -1,8 +1,6 @@
-- 'app.js' es el archivo principal para ejecutar el programa. Esta ejecuta la función 'diceGame', el cuál es el prototipo de
-juego escogido para este ejercicio.
+- 'app.js' es el archivo principal para ejecutar el programa, donde se crean los juegos y los jugadores. Esta ejecuta la función 'diceGame', el cuál es el prototipo de juego escogido para probar el ejercicio.
 
-- La función 'diceGame' recibe dos parámetros. El primer parámetro es el nombre del 'player1' y, el segundo, del 'player2'. Dentro de la función, se crean dos instancias de la clase 'Player', a partir de los parámetros enviados. 
-Acto seguido, crea una instancia de la clase 'Game'. 
+- La función 'diceGame' recibe tres parámetros. Los dos primeros parámetros son los jugadores, y el tercero el juego.
 Se declara un contador, el cuál servirá para tener un control sobre las rondas del juego.
 Añadimos los jugadores a la instancia 'Game' con su método para ello, 'addPlayer'. Mas información sobre ello en la explicación mas adelante de la clase 'Game'.
 
@@ -28,9 +26,3 @@ En su constructor se especifíca que si no existe, que se cree con sus dos atrib
 'showScore': muestra por consola el marcador general.
 
 
-ENUNCIADO
-Singleton
-Construeix una aplicació que creï diversos Jugadors/es. Els jugadors/es podran ser afegits a un Joc, 
-que mostrarà un marcador amb les puntuacions i el guanyador/a. L'aplicació ha de poder afegir o treure punts 
-a cada jugador/a perquè el marcador canviï. La classe Marcador ha d'implementar un patró Singleton com a requisit 
-indispensable. 
