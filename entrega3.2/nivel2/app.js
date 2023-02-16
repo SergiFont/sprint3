@@ -3,9 +3,27 @@ Crea un Decorator en un arxiu que retorni una funció. Aquesta funció efectuar�
 multiplicant pel coeficient de conversió del fitxer adjunt currency_conversions.json en funció de la divisa original.
 Crea una petita aplicació que calculi el cost d'uns quants Articles en euros a partir de les seves divises inicials, 
 aplicant diferents conversions que usin el Decorator del punt anterior. */
+const fs = require('fs')
 const { Product } = require('./Product.js')
-const { addProperty } = require('./decorator.js')
-const { showConsole } = require('./showConsole.js')
+
+const addProperty = (instance, currency)=> {
+    instance.EUR_currency = decorator(instance, currency)
+}
+
+const decorator = (instance, coin) => {
+    const data = JSON.parse(fs.readFileSync('./currency_conversions.json', {encoding: 'utf-8'}))
+    const convertedCurrency = data[`${coin.toUpperCase()}_EUR`] * instance.getPrice()
+    const polishedCurrency = convertedCurrency.toFixed(2)
+    return polishedCurrency
+}
+
+const showConsole = (product, currency) => {
+    console.log(`Un/a ${product.getName()} tiene un precio de ${product.getPrice()} ${currency}.
+Su valor en Euros es de ${product.EUR_currency}€.
+-----------------------------------------------------`)
+}
+
+///////////////////////////////////////////////////////////
 
 const product1 = new Product('Bolígrafo', 500)
 const product2 = new Product('Libreta', 10)
