@@ -1,6 +1,9 @@
 const { User } = require('./User.js')
 const { Topic } = require('./Topic.js')
 
+/*Después de la correción de Oriol, modificada la clase Topic, en concreto el método sendMessage, para que notifique
+también a los usuarios suscritos al mismo tema, de que uno de los miembros ha enviado un mensaje */
+
 
 const setUserJoinSentinel = topic => {
     topic.accesSentinel().on('user joined channel', user => {

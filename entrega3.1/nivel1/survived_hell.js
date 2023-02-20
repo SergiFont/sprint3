@@ -3,6 +3,10 @@ const { join } = require("path")
 const inbox = join(__dirname, "inbox")
 const outbox = join(__dirname, "outbox")
 
+/*En el ejercicio original, estaban cada una de las funciones separadas en un archivo js diferente.
+Iván me recomendó juntarlas todas en el archivo prioncipal, ya que son funciones que no se van a reutilizar
+ y para facilitar la corrección. */
+
 const reverseText = str =>
   str
     .split("")
