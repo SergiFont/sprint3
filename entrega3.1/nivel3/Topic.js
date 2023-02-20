@@ -25,7 +25,10 @@ class Topic {
             const index = this.#users.indexOf(user)
             if (index === -1) {
                 throw new Error('User is not subscribed on this topic')
-            }  
+            }
+            this.#users.forEach(sub => {
+                if(sub !== user) console.log(`Notification for ${sub.getName()}: ${user.getName()} has sent a new message!`)
+            })
             return this.#sentinel.emit('message', user, message)
         } catch (error) {
             console.log(error.message)
@@ -34,6 +37,10 @@ class Topic {
 
     accesSentinel() {
         return this.#sentinel
+    }
+
+    subNotificacion() {
+        
     }
 }
 
