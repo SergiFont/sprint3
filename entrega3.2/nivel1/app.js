@@ -1,43 +1,42 @@
 const { Middleware } = require('./Middleware.js')
-const fs = require('fs')
+const { Calculator } = require('./Calculator.js')
+const numbers = require('./numbers.json')
 
-const addition = (num1, num2) => {
-    console.log(`Finalmente, el resultado de sumar ${num1} con ${num2} es: ${num1 + num2}`)
-    console.log('------------------------')
-    return num1 + num2
-}
-const subtraction = (num1, num2) => {
-    console.log(`Finalmente, el resultado de restar ${num1} con ${num2} es: ${num1 - num2}`)
-    console.log('------------------------')
-    return num1 - num2
-}
-const multiply = (num1, num2) => {
-    console.log(`Finalmente, el resultado de multiplicar ${num1} con ${num2} es: ${num1 * num2}`)
-    console.log('------------------------')
-    return num1 * num2
-}
+const calc = new Calculator()
+const app = new Middleware(calc)
 
-const getNumbers= () => {
-    const file = './numbers.json'
-    const jsonData = fs.readFileSync(file, {encoding: 'utf-8'})
-    const data = JSON.parse(jsonData)
-    const num1 = data.numbers[Math.ceil(Math.random() * data.numbers.length -1)]
-    const num2 = data.numbers[Math.ceil(Math.random() * data.numbers.length -1)]
-    console.log(`-----Los números elegidos són ${num1} y ${num2}-----`)
+/*Correcció Oriol: clase calculadora a part, que el middleware la absorbeixi. Fer la la classe Middleware reutilitzable. */
 
-    return { num1, num2 }
-}
+app.use((req, next) => {
+  const number1 = req.num1
+  const number2 = req.num2
+    req.num1 = req.num1 ** 2
+    req.num2 = req.num2 ** 2
+    console.log(`El resultado de ${number1} al cuadrado es: ${req.num1}, y el resultado de ${number2} al cuadrado es: ${req.num2}`)
+    next()
+  })
+  
+app.use((req, next) => {
+  const number1 = req.num1
+  const number2 = req.num2
+    req.num1 = req.num1 ** 3
+    req.num2 = req.num2 ** 3
+    console.log(`Ahora elevamos ${number1} al cubo, siendo el resultado: ${req.num1}, y lo mismo con ${number2}: ${req.num2}`)
+    next()
+  })
 
-/////////////////////////////////////////////////////
+app.use((req, next) => {
+  const number1 = req.num1
+  const number2 = req.num2
+    req.num1 = req.num1 / 2
+    req.num2 = req.num2 / 2
+    console.log(`Dividiendo ${number1} entre dos, el resultado es: ${req.num1}, y con ${number2} el resultado es: ${req.num2}`)
+    next()
+  })
+  
+  const num1 = numbers[0].num1
+  const num2 = numbers[0].num2
 
-const middleware = new Middleware
-
-const app = (operation) => {
-    const { num1, num2 } = getNumbers()
-    const {output1, output2} = middleware.squaring(num1, num2) 
-    operation(output1, output2)
-}
-
-app(addition)
-app(subtraction)
-app(multiply)
+  console.log(app.addition({num1, num2}))
+  console.log(app.subtraction({num1, num2}))
+  console.log(app.multiply({num1, num2}))
