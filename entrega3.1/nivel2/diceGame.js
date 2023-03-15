@@ -1,4 +1,4 @@
-const { Scorer } = require('./Scorer.js')
+// const { Scorer } = require('./Scorer.js')
 const { Player } = require('./Player.js')
 const { Game } = require('./Game.js')
 
@@ -11,15 +11,15 @@ const throwDices = (player1, player2) => {
     return { dicePlayer1, dicePlayer2 }
 }
 
-const playGame = (player1, player2) => {
+const playGame = (player1, player2, game) => {
     const { dicePlayer1, dicePlayer2 } = throwDices(player1, player2)
-    const score = new Scorer
+    // const score = new Scorer()
     if ( dicePlayer1 > dicePlayer2 ) {
         console.log(`Ha ganado ${player1.getName()}!`)
-        return score.updateScoreP1()
+        return game.updateScoreP1()
     } else if ( dicePlayer1 < dicePlayer2) {
         console.log(`Ha ganado ${player2.getName()}!`)
-        return score.updateScoreP2()
+        return game.updateScoreP2()
     }
     else return console.log(`Empate!`)
 }
@@ -28,13 +28,11 @@ const diceGame = (p1, p2, game) => {
     let counter = 0
     console.log('Juego de dados, al mejor de 5!')
     console.log('------------------------------')
-    game.addPlayer(p1)
-    game.addPlayer(p2)
     const autoPlay = (rounds = 5) => {
         try {
             if (isNaN(rounds)) throw new Error('Insert a number, please')
             if ( counter <= rounds ) {
-                playGame(p1, p2)
+                playGame(p1, p2, game)
                 game.showScore()
                 console.log('-----------------------')
                 setTimeout(() => {

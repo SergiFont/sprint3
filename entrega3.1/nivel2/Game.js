@@ -1,23 +1,32 @@
-const { Scorer } = require('./Scorer.js')
-
 class Game {
-    constructor() {
-        this.players = []
+    constructor(name, scorer) {
+        this.name = name
+        this.scorer = scorer;
     }
 
-    addPlayer(player) {
-        return this.players.push(player)
-    }
-
+    getScoreP1() {
+        return this.scorer.getScoreP1(this);
+      }
+    
+    getScoreP2() {
+        return this.scorer.getScoreP2(this);
+      }
+    
+    updateScoreP1() {
+        return this.scorer.updateScoreP1(this);
+      }
+    
+    updateScoreP2() {
+        return this.scorer.updateScoreP2(this);
+      }
+    
     showScore() {
-        const scorer = new Scorer
-        return scorer.showScore()
-    }
+        return this.scorer.showScore(this);
+      }
 
     showWinner(player1, player2) {
-        const scorer = new Scorer
-        const p1_score = scorer.getScoreP1()
-        const p2_score = scorer.getScoreP2()
+        const p1_score = this.getScoreP1()
+        const p2_score = this.getScoreP2()
         p1_score > p2_score ? console.log(`El ganador de la partida es ${player1.getName()}!`) :
         p1_score < p2_score ? console.log(`El ganador de la partida es ${player2.getName()}!`) :
         console.log(`${player1.getName()} y ${player2.getName()} han empatado!`)
